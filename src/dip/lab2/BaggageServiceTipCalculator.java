@@ -24,8 +24,28 @@ public class BaggageServiceTipCalculator implements CalculatorStrat {
 
     @Override
     public double getTip() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        double tip = 0.00; // always initialize local variables
+
+        
+        switch(QualityOfService) {
+        case GREAT:
+        tip = baseTipPerBag * bagCount * (1 + GREAT_RATE);
+        break;
+        case GOOD:
+        tip = baseTipPerBag * bagCount * (1 + GOOD_RATE);
+        break;
+        case MEDICORE:
+        tip = baseTipPerBag * bagCount * (1 + MEDIOCRE_RATE);
+        break;
+        case POOR:
+        tip = baseTipPerBag * bagCount * (1 + POOR_RATE);
+        break;
+        }
+
+        return tip;
     }
+    
    
     private QualityOfService QualityOfService;
 
