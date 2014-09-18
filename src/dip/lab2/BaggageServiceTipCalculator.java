@@ -8,24 +8,30 @@ package dip.lab2;
  *
  * @author your name goes here
  */
-public class BaggageServiceTipCalculator {
-    private static final double MIN_BILL = 0.00;
-    private static final double MAX_BILL = 100.00;
-    private static final String BILL_ENTRY_ERR =
-            "Error: bill must be between " + MIN_BILL + " and "
-            + MAX_BILL;
+public class BaggageServiceTipCalculator implements CalculatorStrat {
+    private static final double MIN_BILLTOTAL = 0.00;
+    private static final double MAX_BILLTOTAL = 100.00;
+    private static final String BILLTOTAL_ENTRY_ERR =
+            "Error: bill must be between " + MIN_BILLTOTAL + " and "
+            + MAX_BILLTOTAL;
+    private static final double GREAT_RATE = 0.30;
     private static final double GOOD_RATE = 0.20;
-    private static final double FAIR_RATE = 0.15;
+    private static final double MEDIOCRE_RATE = 0.15;
     private static final double POOR_RATE = 0.10;
 
     private double baseTipPerBag;
     private int bagCount;
-    public enum ServiceQuality {
+
+    @Override
+    public double getTip() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public enum QualityOfService {
         GOOD, FAIR, POOR
     }
-    private ServiceQuality serviceQuality;
+    private QualityOfService QualityOfService;
 
-    public BaggageServiceTipCalculator(ServiceQuality q, int bags) {
+    public BaggageServiceTipCalculator(QualityOfService q, int bags) {
         this.setServiceRating(q); // perform validation
         this.setBagCount(bags);
 
@@ -35,28 +41,32 @@ public class BaggageServiceTipCalculator {
     public double getTipForBaggeHandler() {
         double tip = 0.00; // always initialize local variables
 
-        switch(serviceQuality) {
-            case GOOD:
-                tip = baseTipPerBag * bagCount * (1 + GOOD_RATE);
-                break;
-            case FAIR:
-                tip = baseTipPerBag * bagCount * (1 + FAIR_RATE);
-                break;
-            case POOR:
-                tip = baseTipPerBag * bagCount * (1 + POOR_RATE);
-                break;
+        
+        switch(QualityOfService) {
+        case GREAT_RATE:
+        tip = baseTipPerBag * bagCount * (1 + GOOD_RATE);
+        break;
+        case GOOD_RATE:
+        tip = baseTipPerBag * bagCount * (1 + GOOD_RATE);
+        break;
+        case MEDIOCRE_RATE:
+        tip = baseTipPerBag * bagCount * (1 + MEDIOCRE_RATE);
+        break;
+        case POOR_RATE:
+        tip = baseTipPerBag * bagCount * (1 + POOR_RATE);
+        break;
         }
 
         return tip;
     }
 
-    public final void setServiceRating(ServiceQuality q) {
+    public final void setServiceRating(QualityOfService q) {
         // No need to validate because enums provide type safety!
-        serviceQuality = q;
+        QualityOfService = q;
     }
 
-    public ServiceQuality getServiceQuality() {
-        return serviceQuality;
+    public QualityOfService getQualityOfService() {
+        return QualityOfService;
     }
 
     public int getBagCount() {
@@ -74,7 +84,7 @@ public class BaggageServiceTipCalculator {
     public double getBaseTipPerBag() {
         return baseTipPerBag;
     }
-
+    
     public void setBaseTipPerBag(double baseTipPerBag) {
         if(baseTipPerBag < 0) {
             throw new IllegalArgumentException(
