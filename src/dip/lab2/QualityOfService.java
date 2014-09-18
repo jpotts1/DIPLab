@@ -10,5 +10,5 @@ package dip.lab2;
  * @author justinpotts
  */
 public enum QualityOfService {
-    Great, Good, Medicore, Poor
+    GREAT, GOOD, MEDICORE, POOR
 }

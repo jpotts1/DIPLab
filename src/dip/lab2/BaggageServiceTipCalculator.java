@@ -26,9 +26,7 @@ public class BaggageServiceTipCalculator implements CalculatorStrat {
     public double getTip() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public enum QualityOfService {
-        GOOD, FAIR, POOR
-    }
+   
     private QualityOfService QualityOfService;
 
     public BaggageServiceTipCalculator(QualityOfService q, int bags) {
@@ -43,16 +41,16 @@ public class BaggageServiceTipCalculator implements CalculatorStrat {
 
         
         switch(QualityOfService) {
-        case GREAT_RATE:
+        case GREAT:
         tip = baseTipPerBag * bagCount * (1 + GOOD_RATE);
         break;
-        case GOOD_RATE:
+        case GOOD:
         tip = baseTipPerBag * bagCount * (1 + GOOD_RATE);
         break;
-        case MEDIOCRE_RATE:
+        case MEDICORE:
         tip = baseTipPerBag * bagCount * (1 + MEDIOCRE_RATE);
         break;
-        case POOR_RATE:
+        case POOR:
         tip = baseTipPerBag * bagCount * (1 + POOR_RATE);
         break;
         }
